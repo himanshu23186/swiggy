@@ -5,6 +5,8 @@ public class FoodOrder {
         Scanner scanner = new Scanner(System.in);
         Cart cart = new Cart();
 
+        System.out.println("you can order the foods ");
+
         while (true) {
             System.out.println("\nFood Menu:");
             System.out.println("1. Burger - Rs. 120");
