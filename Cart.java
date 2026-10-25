@@ -22,6 +22,20 @@ public class Cart {
         return items.isEmpty();
     }
 
+    public boolean removeItem(String foodName) {
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getFoodName().equalsIgnoreCase(foodName)) {
+                items.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void clear() {
+        items.clear();
+    }
+
     public double getTotal() {
         double total = 0;
         for (CartItem item : items) {

@@ -6,10 +6,9 @@ public class FoodOrder {
         Cart cart = new Cart();
 
         while (true) {
-            System.out.println("\nFood Menu:");
-            System.out.println("1. Burger - Rs. 120");
-            System.out.println("2. Pizza - Rs. 250");
-            System.out.println("3. Pasta - Rs. 180");
+            FoodMenu.display();
+            System.out.println("4. Remove an item");
+            System.out.println("5. Clear cart");
             System.out.println("0. Checkout");
 
             System.out.print("Enter food number (0 to checkout): ");
@@ -17,26 +16,27 @@ public class FoodOrder {
             if (choice == 0) {
                 break;
             }
+            if (choice == 5) {
+                cart.clear();
+                System.out.println("Cart cleared.");
+                continue;
+            }
+            if (choice == 4) {
+                cart.display();
+                System.out.print("Enter item number to remove (1-3): ");
+                int removeChoice = scanner.nextInt();
+                String item = removeChoice == 1 ? "Burger"
+                        : removeChoice == 2 ? "Pizza"
+                        : removeChoice == 3 ? "Pasta" : null;
+                System.out.println(item != null && cart.removeItem(item)
+                        ? item + " removed from cart." : "Item not found.");
+                continue;
+            }
 
-            String foodName;
-            double price;
-
-            switch (choice) {
-                case 1:
-                    foodName = "Burger";
-                    price = 120;
-                    break;
-                case 2:
-                    foodName = "Pizza";
-                    price = 250;
-                    break;
-                case 3:
-                    foodName = "Pasta";
-                    price = 180;
-                    break;
-                default:
-                    System.out.println("Invalid food choice!");
-                    continue;
+            FoodItem foodItem = FoodMenu.getItem(choice);
+            if (foodItem == null) {
+                System.out.println("Invalid food choice!");
+                continue;
             }
 
             System.out.print("Enter quantity: ");
@@ -46,8 +46,8 @@ public class FoodOrder {
                 continue;
             }
 
-            cart.addItem(foodName, price, quantity);
-            System.out.println(quantity + " x " + foodName + " added to cart.");
+            cart.addItem(foodItem.getName(), foodItem.getPrice(), quantity);
+            System.out.println(quantity + " x " + foodItem.getName() + " added to cart.");
         }
 
         cart.display();
